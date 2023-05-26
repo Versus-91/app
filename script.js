@@ -11,6 +11,20 @@ function isInCircle(c, r, p) {
 const rangeSelector = document.getElementById("rangeSelector");
 const lens = document.getElementById("lens");
 let radius = 40;
+let changeNodeShape = false;
+let highlightEdge = false;
+let lenseBehavoirSelect = document.getElementById("lenseBehavoirSelect");
+
+lenseBehavoirSelect.addEventListener("change", (e) => {
+  let selectedValue = Number(e.target.value);
+  if (selectedValue === 1) {
+    changeNodeShape = true;
+    highlightEdge = false;
+  } else if (selectedValue === 2) {
+    changeNodeShape = false;
+    highlightEdge = true;
+  }
+});
 if (rangeSelector) {
   rangeSelector.addEventListener("change", (e) => {
     radius = 40 + 40 * e.target.value;
