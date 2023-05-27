@@ -50,12 +50,13 @@ const _style = [
     style: {
       // your magic lens effects for nodes go here!
       // See https://js.cytoscape.org/#style for all options
-      color: "#000",
+      color: "#27374D",
       'shape': 'square',
       "border-width": "3px",
-      "border-color": "grey",
+      "border-color": "#9DB2BF",
+      "font-size": "8px",  
       "text-outline-width": "0",
-      "background-color": "#fff",
+      "background-color": "#DDE6ED",
     },
   },
   {

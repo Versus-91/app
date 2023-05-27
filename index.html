@@ -16,13 +16,15 @@
 
   <!-- cytoscape draws the graph in this div -->
   <div class="cy" id="cy"></div>
+  <div id="my_dataviz"></div>
 
   <div id="config" class="config">
     <!-- 
 
         your controls can go here  
       -->
-    <input type="range" class="form-range" min="0" max="1" step="0.2" id="rangeSelector" />
+    <label for="rangeSelector" class="lab">Lense radius</label>
+    <input type="range" name="rangeSelector" class="form-range" value="0" min="0" max="1" step="0.2" id="rangeSelector" />
     <select class="form-select" id="lenseBehavoirSelect">
       <option selected>Choose lense behavoir</option>
       <option value="1">Node shape</option>
@@ -35,6 +37,7 @@
 <script src="/libs/cytoscape-3.24.0.js"></script>
 <script src="/libs/cola-3.3.8.js"></script>
 <script src="/libs/cyto-cola-2.2.3.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 
 <!-- the magic goes in these files! -->
 <script src="/style.js" type="module"></script>

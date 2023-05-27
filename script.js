@@ -11,6 +11,7 @@ function isInCircle(c, r, p) {
 const rangeSelector = document.getElementById("rangeSelector");
 const lens = document.getElementById("lens");
 let radius = 40;
+let radiusMultiplier = 0;
 let changeNodeShape = false;
 let highlightEdge = false;
 let lenseBehavoirSelect = document.getElementById("lenseBehavoirSelect");
@@ -27,11 +28,25 @@ lenseBehavoirSelect.addEventListener("change", (e) => {
 });
 if (rangeSelector) {
   rangeSelector.addEventListener("change", (e) => {
-    radius = 40 + 40 * e.target.value;
+    radiusMultiplier = e.target.value;
+    radius = 40 + 40 * radiusMultiplier;
     lens.setAttribute("r", radius);
   });
 }
 
+document.addEventListener("keydown", (event) => {
+  if (event.key === "+") {
+    radiusMultiplier += 0.2;
+    radius = 40 + 40 * radiusMultiplier;
+    lens.setAttribute("r", radius);
+  } else if (event.key === "-") {
+    radiusMultiplier -= 0.2;
+    radius = 40 + 40 * radiusMultiplier;
+    if (radius >= 40) {
+      lens.setAttribute("r", radius);
+    }
+  }
+});
 fetch("data/data.json")
   .then((res) => res.json())
   .then((data) => {
@@ -72,24 +87,32 @@ fetch("data/data.json")
         let getNode = cy.$(`#${n.id()}`);
         if (isInCircle(mouse, radius, node)) {
           if (!!getNode) {
-            getNode.addClass("magic");
+            if (changeNodeShape) {
+              getNode.addClass("magic");
+            }
+            if (highlightEdge) {
+              let edges = getNode.connectedEdges();
+              edges.forEach((e) => {
+                let edge = cy.$(`#${e.id()}`);
+                if (!!edge) {
+                  edge.addClass("magic");
+                }
+              });
+            }
+          }
+        } else {
+          if (changeNodeShape) {
+            getNode.removeClass("magic");
+          }
+          if (highlightEdge) {
             let edges = getNode.connectedEdges();
             edges.forEach((e) => {
               let edge = cy.$(`#${e.id()}`);
               if (!!edge) {
-                edge.addClass("magic");
+                edge.removeClass("magic");
               }
             });
           }
-        } else {
-          getNode.removeClass("magic");
-          let edges = getNode.connectedEdges();
-          edges.forEach((e) => {
-            let edge = cy.$(`#${e.id()}`);
-            if (!!edge) {
-              edge.removeClass("magic");
-            }
-          });
         }
         cy.endBatch();
         // console.log(`Node position: [x: ${node.x}, y: ${node.y}]`);
