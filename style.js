@@ -51,20 +51,25 @@ const _style = [
       // your magic lens effects for nodes go here!
       // See https://js.cytoscape.org/#style for all options
       color: "#27374D",
-      'shape': 'square',
+      "shape": 'square',
       "border-width": "3px",
       "border-color": "#9DB2BF",
       "font-size": "8px",  
       "text-outline-width": "0",
       "background-color": "#DDE6ED",
+      
     },
   },
   {
     selector: "edge.magic",
     style: {
-      // your magic lens effects for edges go here!
-      // See https://js.cytoscape.org/#style for all options
       opacity: "1",
+    },
+  },
+  {
+    selector: "edge.blur",
+    style: {
+      opacity: "0.1",
     },
   },
   {
